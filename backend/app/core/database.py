@@ -277,6 +277,157 @@ INITIAL_STUDENTS_DATA = [
                 "attempts": 2
             }
         ]
+    },
+    {
+        "id": "s12",
+        "regNo": "711023243051",
+        "name": "Sweatha Ravi",
+        "email": "sweatharavi21@gmail.com",
+        "department": "CSE",
+        "semester": "sem5",
+        "section": "A",
+        "gender": "Female",
+        "attendance": 92.0,
+        "cgpa": 8.74,
+        "marks": {
+            "CS3591": {"ia1": 86.0, "ia2": 91.0},
+            "CS3501": {"ia1": 78.0, "ia2": 84.0},
+            "CS3551": {"ia1": 82.0, "ia2": 88.0},
+            "CS3511": {"ia1": 90.0, "ia2": 94.0},
+            "CCS334": {"ia1": 80.0, "ia2": 86.0},
+        },
+        "semesterHistory": [
+            {"sem": 1, "sgpa": 8.2, "passCount": 6, "failCount": 0},
+            {"sem": 2, "sgpa": 8.45, "passCount": 6, "failCount": 0},
+            {"sem": 3, "sgpa": 8.6, "passCount": 6, "failCount": 0},
+            {"sem": 4, "sgpa": 8.8, "passCount": 6, "failCount": 0},
+        ],
+        "arrears": []
+    },
+    {
+        "id": "s13",
+        "regNo": "710022104013",
+        "name": "Praveen V",
+        "email": "praveen.v@college.edu",
+        "department": "CSE",
+        "semester": "sem5",
+        "section": "A",
+        "gender": "Male",
+        "attendance": 66.0,
+        "cgpa": 5.40,
+        "marks": {
+            "CS3591": {"ia1": 48.0, "ia2": 42.0},
+            "CS3501": {"ia1": 44.0, "ia2": 40.0},
+            "CS3551": {"ia1": 50.0, "ia2": 45.0},
+            "CS3511": {"ia1": 52.0, "ia2": 48.0},
+            "CCS334": {"ia1": 46.0, "ia2": 42.0},
+        },
+        "semesterHistory": [
+            {"sem": 1, "sgpa": 6.2, "passCount": 5, "failCount": 1},
+            {"sem": 2, "sgpa": 5.8, "passCount": 4, "failCount": 2},
+            {"sem": 3, "sgpa": 5.2, "passCount": 3, "failCount": 3},
+            {"sem": 4, "sgpa": 5.0, "passCount": 3, "failCount": 3},
+        ],
+        "arrears": [
+            {"subjectCode": "CS3351", "subjectName": "Digital Principles & Computer Org", "semester": 3, "examSession": "Nov/Dec 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "CS3391", "subjectName": "Object Oriented Programming", "semester": 3, "examSession": "Nov/Dec 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "MA3354", "subjectName": "Discrete Mathematics", "semester": 3, "examSession": "Nov/Dec 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 3},
+            {"subjectCode": "CS3452", "subjectName": "Theory of Computation", "semester": 4, "examSession": "Apr/May 2024", "status": "ACTIVE", "clearedInSession": None, "attempts": 1},
+            {"subjectCode": "CS3491", "subjectName": "Artificial Intelligence & ML", "semester": 4, "examSession": "Apr/May 2024", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "CS3401", "subjectName": "Algorithms", "semester": 4, "examSession": "Apr/May 2024", "status": "ACTIVE", "clearedInSession": None, "attempts": 1},
+            {"subjectCode": "MA3151", "subjectName": "Matrices and Calculus", "semester": 1, "examSession": "Jan/Feb 2023", "status": "CLEARED", "clearedInSession": "Apr/May 2024", "attempts": 3},
+        ]
+    },
+    {
+        "id": "s14",
+        "regNo": "710022104014",
+        "name": "Suresh Kumar",
+        "email": "suresh.kumar@college.edu",
+        "department": "CSE",
+        "semester": "sem5",
+        "section": "B",
+        "gender": "Male",
+        "attendance": 61.0,
+        "cgpa": 4.85,
+        "marks": {
+            "CS3591": {"ia1": 38.0, "ia2": 35.0},
+            "CS3501": {"ia1": 42.0, "ia2": 38.0},
+            "CS3551": {"ia1": 40.0, "ia2": 36.0},
+            "CS3511": {"ia1": 45.0, "ia2": 42.0},
+            "CCS334": {"ia1": 40.0, "ia2": 38.0},
+        },
+        "semesterHistory": [
+            {"sem": 1, "sgpa": 5.4, "passCount": 3, "failCount": 3},
+            {"sem": 2, "sgpa": 5.0, "passCount": 3, "failCount": 3},
+            {"sem": 3, "sgpa": 4.8, "passCount": 3, "failCount": 3},
+            {"sem": 4, "sgpa": 4.6, "passCount": 3, "failCount": 3},
+        ],
+        "arrears": [
+            {"subjectCode": "MA3151", "subjectName": "Matrices and Calculus", "semester": 1, "examSession": "Jan/Feb 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 3},
+            {"subjectCode": "PH3151", "subjectName": "Engineering Physics", "semester": 1, "examSession": "Jan/Feb 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "CY3151", "subjectName": "Engineering Chemistry", "semester": 1, "examSession": "Jan/Feb 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "GE3151", "subjectName": "Problem Solving and Python", "semester": 1, "examSession": "Jan/Feb 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "MA3251", "subjectName": "Statistics and Numerical Methods", "semester": 2, "examSession": "Apr/May 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "CS3251", "subjectName": "Programming in C", "semester": 2, "examSession": "Apr/May 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "CS3351", "subjectName": "Digital Principles & Computer Org", "semester": 3, "examSession": "Nov/Dec 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "CS3352", "subjectName": "Foundations of Data Science", "semester": 3, "examSession": "Nov/Dec 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 1},
+            {"subjectCode": "CS3391", "subjectName": "Object Oriented Programming", "semester": 3, "examSession": "Nov/Dec 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "MA3354", "subjectName": "Discrete Mathematics", "semester": 3, "examSession": "Nov/Dec 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "CS3401", "subjectName": "Algorithms", "semester": 4, "examSession": "Apr/May 2024", "status": "ACTIVE", "clearedInSession": None, "attempts": 1},
+            {"subjectCode": "CS3452", "subjectName": "Theory of Computation", "semester": 4, "examSession": "Apr/May 2024", "status": "ACTIVE", "clearedInSession": None, "attempts": 1},
+            {"subjectCode": "GE3251", "subjectName": "Engineering Graphics", "semester": 2, "examSession": "Apr/May 2023", "status": "CLEARED", "clearedInSession": "Nov/Dec 2023", "attempts": 2},
+        ]
+    },
+    {
+        "id": "s15",
+        "regNo": "710022104015",
+        "name": "Vigneshwaran M",
+        "email": "vigneshwaran.m@college.edu",
+        "department": "CSE",
+        "semester": "sem5",
+        "section": "A",
+        "gender": "Male",
+        "attendance": 55.0,
+        "cgpa": 3.90,
+        "marks": {
+            "CS3591": {"ia1": 32.0, "ia2": 28.0},
+            "CS3501": {"ia1": 30.0, "ia2": 26.0},
+            "CS3551": {"ia1": 35.0, "ia2": 30.0},
+            "CS3511": {"ia1": 38.0, "ia2": 34.0},
+            "CCS334": {"ia1": 34.0, "ia2": 30.0},
+        },
+        "semesterHistory": [
+            {"sem": 1, "sgpa": 4.5, "passCount": 1, "failCount": 5},
+            {"sem": 2, "sgpa": 4.0, "passCount": 1, "failCount": 5},
+            {"sem": 3, "sgpa": 3.8, "passCount": 0, "failCount": 6},
+            {"sem": 4, "sgpa": 3.6, "passCount": 0, "failCount": 6},
+        ],
+        "arrears": [
+            # 22 distinct uncleared subjects
+            {"subjectCode": "HS3151", "subjectName": "Professional English - I", "semester": 1, "examSession": "Jan/Feb 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "MA3151", "subjectName": "Matrices and Calculus", "semester": 1, "examSession": "Jan/Feb 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 4},
+            {"subjectCode": "PH3151", "subjectName": "Engineering Physics", "semester": 1, "examSession": "Jan/Feb 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 3},
+            {"subjectCode": "CY3151", "subjectName": "Engineering Chemistry", "semester": 1, "examSession": "Jan/Feb 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 3},
+            {"subjectCode": "GE3151", "subjectName": "Problem Solving and Python", "semester": 1, "examSession": "Jan/Feb 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 3},
+            {"subjectCode": "HS3251", "subjectName": "Professional English - II", "semester": 2, "examSession": "Apr/May 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "MA3251", "subjectName": "Statistics and Numerical Methods", "semester": 2, "examSession": "Apr/May 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 3},
+            {"subjectCode": "PH3256", "subjectName": "Physics for Information Science", "semester": 2, "examSession": "Apr/May 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "BE3251", "subjectName": "Basic Electrical and Electronics", "semester": 2, "examSession": "Apr/May 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "GE3251", "subjectName": "Engineering Graphics", "semester": 2, "examSession": "Apr/May 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "CS3251", "subjectName": "Programming in C", "semester": 2, "examSession": "Apr/May 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 3},
+            {"subjectCode": "MA3354", "subjectName": "Discrete Mathematics", "semester": 3, "examSession": "Nov/Dec 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 3},
+            {"subjectCode": "CS3351", "subjectName": "Digital Principles & Computer Org", "semester": 3, "examSession": "Nov/Dec 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "CS3352", "subjectName": "Foundations of Data Science", "semester": 3, "examSession": "Nov/Dec 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "CS3301", "subjectName": "Data Structures", "semester": 3, "examSession": "Nov/Dec 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "CS3391", "subjectName": "Object Oriented Programming", "semester": 3, "examSession": "Nov/Dec 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "GE3361", "subjectName": "Professional Development", "semester": 3, "examSession": "Nov/Dec 2023", "status": "ACTIVE", "clearedInSession": None, "attempts": 1},
+            {"subjectCode": "CS3452", "subjectName": "Theory of Computation", "semester": 4, "examSession": "Apr/May 2024", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "CS3491", "subjectName": "Artificial Intelligence & ML", "semester": 4, "examSession": "Apr/May 2024", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "CS3492", "subjectName": "Database Management Systems", "semester": 4, "examSession": "Apr/May 2024", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "CS3401", "subjectName": "Algorithms", "semester": 4, "examSession": "Apr/May 2024", "status": "ACTIVE", "clearedInSession": None, "attempts": 2},
+            {"subjectCode": "GE3451", "subjectName": "Environmental Sciences", "semester": 4, "examSession": "Apr/May 2024", "status": "ACTIVE", "clearedInSession": None, "attempts": 1},
+            {"subjectCode": "GE3171", "subjectName": "Problem Solving Lab", "semester": 1, "examSession": "Jan/Feb 2023", "status": "CLEARED", "clearedInSession": "Apr/May 2024", "attempts": 2},
+        ]
     }
 ]
 
@@ -293,6 +444,11 @@ INITIAL_UNIVERSITY_RESULTS = [
     {"id": "ur10", "regNo": "710022104005", "name": "Gokul S", "subjectCode": "CS3591", "subjectName": "Computer Networks", "grade": "RA", "credits": 4, "result": "FAIL", "semester": 5, "examSession": "Nov/Dec 2024"},
     {"id": "ur11", "regNo": "710022104005", "name": "Gokul S", "subjectCode": "CS3501", "subjectName": "Compiler Design", "grade": "RA", "credits": 4, "result": "FAIL", "semester": 5, "examSession": "Nov/Dec 2024"},
     {"id": "ur12", "regNo": "710022104006", "name": "Harini K", "subjectCode": "CS3591", "subjectName": "Computer Networks", "grade": "A+", "credits": 4, "result": "PASS", "semester": 5, "examSession": "Nov/Dec 2024"},
+    {"id": "ur13", "regNo": "711023243051", "name": "Sweatha Ravi", "subjectCode": "CS3591", "subjectName": "Computer Networks", "grade": "A+", "credits": 4, "result": "PASS", "semester": 5, "examSession": "Nov/Dec 2024"},
+    {"id": "ur14", "regNo": "711023243051", "name": "Sweatha Ravi", "subjectCode": "CS3501", "subjectName": "Compiler Design", "grade": "A", "credits": 4, "result": "PASS", "semester": 5, "examSession": "Nov/Dec 2024"},
+    {"id": "ur15", "regNo": "711023243051", "name": "Sweatha Ravi", "subjectCode": "CS3551", "subjectName": "Distributed Systems", "grade": "O", "credits": 3, "result": "PASS", "semester": 5, "examSession": "Nov/Dec 2024"},
+    {"id": "ur16", "regNo": "711023243051", "name": "Sweatha Ravi", "subjectCode": "CS3511", "subjectName": "Data Mining & Warehousing", "grade": "A+", "credits": 4, "result": "PASS", "semester": 5, "examSession": "Nov/Dec 2024"},
+    {"id": "ur17", "regNo": "711023243051", "name": "Sweatha Ravi", "subjectCode": "CCS334", "subjectName": "Big Data Analytics", "grade": "A", "credits": 3, "result": "PASS", "semester": 5, "examSession": "Nov/Dec 2024"},
 ]
 
 SUBJECTS_CATALOG = {
@@ -304,9 +460,26 @@ SUBJECTS_CATALOG = {
     "MA3354": "Discrete Mathematics",
     "CS3401": "Algorithms",
     "CS3491": "Artificial Intelligence & ML",
+    "CS3492": "Database Management Systems",
     "CS3452": "Theory of Computation",
     "MA3151": "Matrices and Calculus",
-    "CS3352": "Foundations of Data Science"
+    "CS3351": "Digital Principles & Computer Org",
+    "CS3352": "Foundations of Data Science",
+    "CS3301": "Data Structures",
+    "CS3391": "Object Oriented Programming",
+    "PH3151": "Engineering Physics",
+    "CY3151": "Engineering Chemistry",
+    "GE3151": "Problem Solving and Python",
+    "HS3151": "Professional English - I",
+    "HS3251": "Professional English - II",
+    "MA3251": "Statistics and Numerical Methods",
+    "PH3256": "Physics for Information Science",
+    "BE3251": "Basic Electrical and Electronics",
+    "GE3251": "Engineering Graphics",
+    "CS3251": "Programming in C",
+    "GE3361": "Professional Development",
+    "GE3451": "Environmental Sciences",
+    "GE3171": "Problem Solving Lab"
 }
 
 class InMemoryDatabase:
@@ -365,10 +538,14 @@ class InMemoryDatabase:
             if "id" not in r:
                 r["id"] = f"ur_{uuid.uuid4().hex[:8]}"
             self.university_results.append(r)
-            # If failed, add to student's arrear ledger if student exists
-            if r.get("grade") == "RA" or r.get("result") == "FAIL":
-                st = self.get_student_by_reg_no(r["regNo"])
-                if st:
+            
+            # Cross-reference with student arrear ledger
+            st = self.get_student_by_reg_no(r["regNo"])
+            if st:
+                is_fail = r.get("grade") in ("RA", "U") or r.get("result") == "FAIL"
+                is_pass = r.get("result") == "PASS" and r.get("grade") not in ("RA", "U")
+                
+                if is_fail:
                     existing_arr = next((a for a in st["arrears"] if a["subjectCode"] == r["subjectCode"] and a["status"] == "ACTIVE"), None)
                     if existing_arr:
                         existing_arr["attempts"] += 1
@@ -382,6 +559,12 @@ class InMemoryDatabase:
                             "clearedInSession": None,
                             "attempts": 1
                         })
+                elif is_pass:
+                    for arr in st.get("arrears", []):
+                        if arr["subjectCode"] == r["subjectCode"] and arr["status"] == "ACTIVE":
+                            arr["status"] = "CLEARED"
+                            arr["clearedInSession"] = r.get("examSession", "Nov/Dec 2024")
+
         return len(new_records)
 
     def clear_arrear(self, reg_no: str, subject_code: str, cleared_session: str):
@@ -397,3 +580,4 @@ class InMemoryDatabase:
         return cleared
 
 db = InMemoryDatabase()
+

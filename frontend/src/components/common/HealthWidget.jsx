@@ -45,37 +45,37 @@ export default function HealthWidget({ healthData, isLoading, onRefresh }) {
   const services = healthData?.data?.services || {};
 
   return (
-    <div className="rounded-2xl bg-slate-900/90 border border-slate-800 glass-panel p-6 space-y-6">
+    <div className="rounded-2xl bg-slate-900/90 border border-slate-800 glass-panel p-4 sm:p-6 space-y-5 sm:space-y-6">
       {/* Widget Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
         <div className="flex items-center gap-3">
-          <div className="p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
-            <Server className="h-6 w-6" />
+          <div className="p-2.5 sm:p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 shrink-0">
+            <Server className="h-5 w-5 sm:h-6 sm:w-6" />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-white flex items-center gap-2">
+            <h2 className="text-base sm:text-lg font-bold text-white flex flex-wrap items-center gap-2">
               Full-Stack Diagnostics & Health Monitor
               {isHealthy ? (
-                <span className="flex items-center gap-1 text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span className="flex items-center gap-1 text-[11px] sm:text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                   <CheckCircle className="h-3 w-3" /> Live & Connected
                 </span>
               ) : (
-                <span className="flex items-center gap-1 text-xs px-2.5 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                <span className="flex items-center gap-1 text-[11px] sm:text-xs px-2.5 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20">
                   <XCircle className="h-3 w-3" /> Unreachable
                 </span>
               )}
             </h2>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-400 mt-0.5">
               Real-time synchronization between React Vite client and FastAPI backend service
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           <button
             onClick={handleRunPing}
             disabled={testingPing}
-            className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition flex items-center gap-1.5 disabled:opacity-50"
+            className="flex-1 sm:flex-initial min-h-[40px] px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 text-xs font-medium border border-slate-700 transition flex items-center justify-center gap-1.5 disabled:opacity-50 cursor-pointer"
           >
             <Activity className="h-3.5 w-3.5 text-cyan-400" />
             {testingPing ? 'Testing...' : 'Test Ping'}
@@ -83,10 +83,10 @@ export default function HealthWidget({ healthData, isLoading, onRefresh }) {
           <button
             onClick={onRefresh}
             disabled={isLoading}
-            className="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium transition shadow-lg shadow-indigo-600/20 flex items-center gap-1.5 disabled:opacity-50"
+            className="flex-1 sm:flex-initial min-h-[40px] px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white text-xs font-medium transition shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-1.5 disabled:opacity-50 cursor-pointer"
           >
             <RefreshCw className={`h-3.5 w-3.5 ${isLoading ? 'animate-spin' : ''}`} />
-            Refresh Health
+            Refresh
           </button>
         </div>
       </div>

@@ -27,6 +27,17 @@ class SubjectPassAnalytics(BaseModel):
     failed: int
     passPercentage: float
 
+class CategoryStudentSummary(BaseModel):
+    regNo: str
+    name: str
+    department: str = "CSE"
+    currentSemester: str = "sem5"
+    arrearCount: int
+    category: Optional[str] = None
+    categoryBadge: Optional[str] = None
+    categoryColor: Optional[str] = None
+    pendingSubjects: list[str] = []
+
 class UniversityAnalyticsOut(BaseModel):
     totalEvaluatedEntries: int
     distinctStudents: int
@@ -35,6 +46,10 @@ class UniversityAnalyticsOut(BaseModel):
     overallPassRate: float
     totalFailures: int
     subjectAnalytics: list[SubjectPassAnalytics]
+    fivePlusCount: int = 0
+    tenPlusCount: int = 0
+    twentyPlusCount: int = 0
+    categoryStudents: list[CategoryStudentSummary] = []
 
 class PDFExtractionResponse(BaseModel):
     filename: str

@@ -5,10 +5,11 @@ from app.schemas.university_schema import (
     UniversityAnalyticsOut, 
     SubjectPassAnalytics, 
     PDFExtractionResponse,
-    CommitResultsRequest
+    CommitResultsRequest,
+    CategoryStudentSummary
 )
 from app.schemas.common import ApiResponse
-from app.schemas.auth_schema import UserProfile
+from app.schemas.auth_schema import UserProfile, UserRole
 from app.core.database import db
 from app.core.security import get_current_user, require_admin
 from app.services.pdf_extractor import pdf_extractor
@@ -20,12 +21,21 @@ async def list_university_results(
     semester: Optional[int] = Query(default=None, description="Semester number e.g. 5"),
     subject_code: Optional[str] = Query(default=None, description="Filter by subject code"),
     status: Optional[str] = Query(default=None, description="Filter by PASS or FAIL"),
+    reg_no: Optional[str] = Query(default=None, description="Filter by register number"),
     current_user: UserProfile = Depends(get_current_user)
 ):
     """
     List verified university examination results.
     """
     results = db.get_all_university_results(semester=semester)
+
+    if current_user.role == UserRole.STUDENT:
+        # Student sessions may only ever read their own result statements
+        own_record = db.get_student_by_id(current_user.id)
+        own_reg_no = own_record.get("regNo") if own_record else None
+        results = [r for r in results if r["regNo"] == own_reg_no]
+    elif reg_no:
+        results = [r for r in results if r["regNo"].upper() == reg_no.upper()]
 
     if subject_code:
         results = [r for r in results if r["subjectCode"].upper() == subject_code.upper()]
@@ -44,9 +54,32 @@ async def get_university_analytics(
     current_user: UserProfile = Depends(get_current_user)
 ):
     """
-    Compute university pass percentage, failure counts, and subject-wise pass distribution.
+    Compute university pass percentage, failure counts, subject-wise pass distribution,
+    and student arrear category classification.
     """
     results = db.get_all_university_results(semester=semester)
+    all_results = db.get_all_university_results()
+    students = db.get_all_students()
+    
+    from app.services.arrear_service import get_cohort_arrear_classification
+    cohort = get_cohort_arrear_classification(students, all_results)
+
+    category_students = [
+        CategoryStudentSummary(
+            regNo=s["regNo"],
+            name=s["studentName"],
+            department=s.get("department", "CSE"),
+            currentSemester=s.get("currentSemester", "sem5"),
+            arrearCount=s["totalUnclearedCount"],
+            category=s["category"],
+            categoryBadge=s["categoryBadge"],
+            categoryColor=s["categoryColor"],
+            pendingSubjects=[f"{p['subjectCode']} - {p['subjectName']}" for p in s["pendingSubjects"]]
+        )
+        for s in cohort["students"]
+        if s["totalUnclearedCount"] > 0
+    ]
+
     if not results:
         return ApiResponse(
             success=True,
@@ -58,7 +91,11 @@ async def get_university_analytics(
                 studentsWithArrears=0,
                 overallPassRate=0.0,
                 totalFailures=0,
-                subjectAnalytics=[]
+                subjectAnalytics=[],
+                fivePlusCount=cohort["summary"]["fivePlusCount"],
+                tenPlusCount=cohort["summary"]["tenPlusCount"],
+                twentyPlusCount=cohort["summary"]["twentyPlusCount"],
+                categoryStudents=category_students
             )
         )
 
@@ -105,10 +142,15 @@ async def get_university_analytics(
         studentsWithArrears=len(failed_regnos),
         overallPassRate=overall_pass_rate,
         totalFailures=total_failures,
-        subjectAnalytics=subject_analytics
+        subjectAnalytics=subject_analytics,
+        fivePlusCount=cohort["summary"]["fivePlusCount"],
+        tenPlusCount=cohort["summary"]["tenPlusCount"],
+        twentyPlusCount=cohort["summary"]["twentyPlusCount"],
+        categoryStudents=category_students
     )
 
     return ApiResponse(success=True, message="University examination analytics generated", data=analytics)
+
 
 @router.post("/extract-pdf", response_model=ApiResponse[PDFExtractionResponse])
 async def extract_university_pdf(

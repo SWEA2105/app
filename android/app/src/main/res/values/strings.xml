@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">INFO Academic Analyzer</string>
+    <string name="title_activity_main">INFO Academic Analyzer</string>
+    <string name="package_name">com.sweatha.myaiapp</string>
+    <string name="custom_url_scheme">com.sweatha.myaiapp</string>
+</resources>

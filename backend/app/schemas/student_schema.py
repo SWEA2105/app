@@ -46,6 +46,9 @@ class StudentOut(StudentBase):
     marks: dict[str, SubjectMarkDetail] = {}
     arrears: list[ArrearItem] = []
     semesterHistory: list[SemesterHistoryItem] = []
+    currentArrearCount: Optional[int] = 0
+    arrearCategory: Optional[str] = None
+    arrearCategoryBadge: Optional[str] = None
 
 class StudentDossierOut(BaseModel):
     student: StudentOut
@@ -55,3 +58,7 @@ class StudentDossierOut(BaseModel):
     currentSemesterAverage: float
     isAtRisk: bool
     riskFactors: list[str] = []
+    arrearCategory: Optional[str] = None
+    arrearCategoryBadge: Optional[str] = None
+    arrearCategoryColor: Optional[str] = None
+

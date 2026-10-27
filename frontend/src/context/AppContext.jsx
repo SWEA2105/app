@@ -93,9 +93,57 @@ export function AppProvider({ children }) {
     );
   };
 
-  // Commit verified university results into the ledger
+  // Commit verified university results into the ledger and update student arrear ledgers
   const commitUniversityResults = (newResults) => {
     setUniversityResults((prev) => [...prev, ...newResults]);
+    
+    // Dynamically update student arrears ledger reactively
+    setStudents((prev) =>
+      prev.map((student) => {
+        const studentExams = newResults.filter((r) => r.regNo === student.regNo);
+        if (studentExams.length === 0) return student;
+
+        let updatedArrears = [...(student.arrears || [])];
+
+        studentExams.forEach((exam) => {
+          const isFail = exam.result === 'FAIL' || exam.grade === 'RA' || exam.grade === 'U';
+          const isPass = exam.result === 'PASS' && exam.grade !== 'RA' && exam.grade !== 'U';
+
+          if (isFail) {
+            const existingIdx = updatedArrears.findIndex((a) => a.subjectCode === exam.subjectCode && a.status === 'ACTIVE');
+            if (existingIdx >= 0) {
+              updatedArrears[existingIdx] = {
+                ...updatedArrears[existingIdx],
+                attempts: (updatedArrears[existingIdx].attempts || 1) + 1,
+              };
+            } else {
+              updatedArrears.push({
+                subjectCode: exam.subjectCode,
+                subjectName: exam.subjectName || exam.subjectCode,
+                semester: exam.semester || 5,
+                examSession: exam.examSession || 'Nov/Dec 2024',
+                status: 'ACTIVE',
+                clearedInSession: null,
+                attempts: 1,
+              });
+            }
+          } else if (isPass) {
+            updatedArrears = updatedArrears.map((a) => {
+              if (a.subjectCode === exam.subjectCode && a.status === 'ACTIVE') {
+                return {
+                  ...a,
+                  status: 'CLEARED',
+                  clearedInSession: exam.examSession || 'Nov/Dec 2024',
+                };
+              }
+              return a;
+            });
+          }
+        });
+
+        return { ...student, arrears: updatedArrears };
+      })
+    );
   };
 
   // Helper: Get subject details by code

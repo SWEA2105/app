@@ -3,9 +3,10 @@ from typing import Optional
 import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from app.core.config import settings
 from app.schemas.auth_schema import UserProfile, UserRole
 
-SECRET_KEY = "institutional-super-secret-key-student-analyzer"
+SECRET_KEY = settings.SECRET_KEY
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
 
@@ -72,7 +73,7 @@ async def get_current_user(credentials: Optional[HTTPAuthorizationCredentials] =
                 role=payload.get("role", UserRole.FACULTY),
                 department=payload.get("department", "CSE"),
                 designation=payload.get("designation", "Faculty Member"),
-                avatar="FA"
+                avatar=payload.get("avatar", "FA")
             )
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -93,6 +94,46 @@ def require_admin(current_user: UserProfile = Depends(get_current_user)) -> User
             detail="Forbidden: This operation requires Administrator / HOD privileges."
         )
     return current_user
+
+def build_student_profile(student: dict) -> UserProfile:
+    """
+    Project a student record onto the shared user profile used by the JWT layer.
+    """
+    name = (student.get("name") or student.get("regNo") or "Student").strip()
+    initials = "".join(part[0] for part in name.split()[:2]).upper() or "ST"
+    reg_no = student.get("regNo", "")
+    return UserProfile(
+        id=student.get("id", "student_unknown"),
+        name=name,
+        email=student.get("email", ""),
+        role=UserRole.STUDENT,
+        department=student.get("department", "CSE"),
+        designation=f"Student (Reg. No. {reg_no})" if reg_no else "Student",
+        avatar=initials
+    )
+
+def require_student(current_user: UserProfile = Depends(get_current_user)) -> UserProfile:
+    """
+    Ensures the caller is an authenticated student session.
+    """
+    if current_user.role != UserRole.STUDENT:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Forbidden: This operation is restricted to student sessions."
+        )
+    return current_user
+
+def ensure_student_owns_record(current_user: UserProfile, student: dict):
+    """
+    Row-Level Security (RLS) for student sessions: a student may only ever
+    read their own academic record.
+    """
+    if current_user.role == UserRole.STUDENT and current_user.id != student.get("id"):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access Denied: Students may only access their own academic records."
+        )
+    return True
 
 def verify_department_access(requested_department: str, user: UserProfile):
     """

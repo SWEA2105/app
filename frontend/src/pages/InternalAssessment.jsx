@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
 import { useApp } from '../context/AppContext';
+import { downloadFile } from '../utils/mobileDownload';
 
 export default function InternalAssessment() {
   const { students, subjects, selectedSubject, setSelectedSubject, updateStudentMark, batchUpdateMarks } = useApp();
@@ -137,51 +138,49 @@ export default function InternalAssessment() {
     setTimeout(() => setUploadFeedback(null), 4000);
   };
 
-  const handleExportCSV = () => {
-    const headers = ['Register Number,Student Name,Department,Subject,IA-1 Marks,IA-2 Marks,Average,Trajectory,Status\n'];
+  const handleExportCSV = async () => {
+    const headers = 'Register Number,Student Name,Department,Subject,IA-1 Marks,IA-2 Marks,Average,Trajectory,Status\n';
     const rows = studentRows.map((s) =>
       `"${s.regNo}","${s.name}","${s.department}","${selectedSubject}","${s.ia1}","${s.ia2}","${s.avg.toFixed(1)}","${s.trajectory}","${s.needsAttention ? 'Academic Attention Required' : 'On Track'}"\n`
-    );
-    const blob = new Blob([...headers, ...rows], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `IA_Marks_${selectedSubject}_${new Date().toISOString().split('T')[0]}.csv`;
-    a.click();
+    ).join('');
+    const filename = `IA_Marks_${selectedSubject}_${new Date().toISOString().split('T')[0]}.csv`;
+    await downloadFile(filename, headers + rows);
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto">
+    <div className="space-y-5 sm:space-y-6 max-w-7xl mx-auto overflow-x-hidden">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-2xl bg-slate-900/80 border border-slate-800 glass-panel">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:p-6 rounded-2xl bg-slate-900/80 border border-slate-800 glass-panel">
         <div className="flex items-center gap-3">
-          <div className="p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
-            <BookOpenCheck className="h-6 w-6" />
+          <div className="p-2.5 sm:p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 shrink-0">
+            <BookOpenCheck className="h-5 w-5 sm:h-6 sm:w-6" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
+            <h2 className="text-base sm:text-xl font-bold text-white flex items-center gap-2">
               Module A: Internal Assessment Analyzer
-              <span className="text-xs px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono font-medium">
-                IA-1 & IA-2
+              <span className="text-[10px] sm:text-xs px-2 sm:px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono font-medium">
+                IA-1 &amp; IA-2
               </span>
             </h2>
-            <p className="text-xs text-slate-400">
+            <p className="text-[11px] sm:text-xs text-slate-400">
               Calculate weighted averages, compare continuous assessment trends, and flag at-risk candidates.
             </p>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
           <button
             onClick={handleLoadSampleMarks}
-            className="px-3 py-2 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer"
+            className="px-3 py-2 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+            style={{ minHeight: '38px' }}
           >
             <Sparkles className="h-3.5 w-3.5" />
             Quick Simulate Import
           </button>
           <button
             onClick={handleExportCSV}
-            className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center gap-1.5 cursor-pointer"
+            className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+            style={{ minHeight: '38px' }}
           >
             <Download className="h-3.5 w-3.5 text-cyan-400" />
             Export CSV
@@ -197,7 +196,7 @@ export default function InternalAssessment() {
       )}
 
       {/* Subject Filter Bar */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2">
+      <div className="flex items-center gap-2 overflow-x-auto touch-scroll scrollbar-none pb-2">
         <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider shrink-0 mr-1">
           Active Subject:
         </span>
@@ -273,46 +272,50 @@ export default function InternalAssessment() {
       </div>
 
       {/* Tabs and Search Controls */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-1.5 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs w-full sm:w-auto">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+        <div className="flex items-center gap-1.5 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs w-full sm:w-auto overflow-x-auto touch-scroll pb-1 sm:pb-1">
           <button
             onClick={() => setActiveTab('roster')}
-            className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-medium transition cursor-pointer ${
+            className={`px-3 py-2 rounded-lg font-medium transition cursor-pointer shrink-0 text-center ${
               activeTab === 'roster'
-                ? 'bg-indigo-600 text-white'
+                ? 'bg-indigo-600 text-white shadow-sm'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
+            style={{ minHeight: '38px' }}
           >
             All Students ({studentRows.length})
           </button>
           <button
             onClick={() => setActiveTab('attention')}
-            className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-medium transition cursor-pointer flex items-center justify-center gap-1.5 ${
+            className={`px-3 py-2 rounded-lg font-medium transition cursor-pointer shrink-0 flex items-center justify-center gap-1.5 ${
               activeTab === 'attention'
-                ? 'bg-rose-600 text-white'
+                ? 'bg-rose-600 text-white shadow-sm'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
+            style={{ minHeight: '38px' }}
           >
-            <AlertTriangle className="h-3 w-3" />
-            Needs Attention ({subjectStats.atRiskCount})
+            <AlertTriangle className="h-3 w-3 shrink-0" />
+            <span>Needs Attention ({subjectStats.atRiskCount})</span>
           </button>
           <button
             onClick={() => setActiveTab('improving')}
-            className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-medium transition cursor-pointer ${
+            className={`px-3 py-2 rounded-lg font-medium transition cursor-pointer shrink-0 text-center ${
               activeTab === 'improving'
-                ? 'bg-emerald-600 text-white'
+                ? 'bg-emerald-600 text-white shadow-sm'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
+            style={{ minHeight: '38px' }}
           >
             Improving ({subjectStats.improvingCount})
           </button>
           <button
             onClick={() => setActiveTab('declining')}
-            className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-medium transition cursor-pointer ${
+            className={`px-3 py-2 rounded-lg font-medium transition cursor-pointer shrink-0 text-center ${
               activeTab === 'declining'
-                ? 'bg-amber-600 text-white'
+                ? 'bg-amber-600 text-white shadow-sm'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
+            style={{ minHeight: '38px' }}
           >
             Declining ({subjectStats.decliningCount})
           </button>
@@ -325,33 +328,36 @@ export default function InternalAssessment() {
             placeholder="Search student or register number..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 bg-slate-900 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+            className="w-full pl-9 pr-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-500 min-h-[38px]"
           />
         </div>
       </div>
 
       {/* Main Interactive Marks Table */}
       <div className="rounded-2xl bg-slate-900/80 border border-slate-800 glass-panel overflow-hidden">
-        <div className="p-3.5 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400">
+        <div className="p-3.5 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-400">
           <div className="flex items-center gap-1.5">
-            <Edit3 className="h-3.5 w-3.5 text-indigo-400" />
-            <span>Click any mark to edit inline • Averages update in real-time</span>
+            <Edit3 className="h-3.5 w-3.5 text-indigo-400 shrink-0" />
+            <span>Tap any mark to edit inline • Real-time recalculation</span>
           </div>
-          <span className="text-[11px] text-slate-500">Showing {displayedRows.length} candidates</span>
+          <div className="flex items-center justify-between sm:justify-end gap-3 text-[11px] text-slate-500">
+            <span className="sm:hidden text-indigo-400 font-medium">Swipe table &rarr;</span>
+            <span>Showing {displayedRows.length} candidates</span>
+          </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+        <div className="overflow-x-auto touch-scroll">
+          <table className="w-full text-left text-xs min-w-[680px]">
             <thead className="bg-slate-950 text-slate-400 uppercase font-semibold text-[10px] border-b border-slate-800">
               <tr>
-                <th className="py-3 px-4">Rank</th>
-                <th className="py-3 px-4">Register Number</th>
-                <th className="py-3 px-4">Student Name</th>
-                <th className="py-3 px-4 text-center">IA-1 (100)</th>
-                <th className="py-3 px-4 text-center">IA-2 (100)</th>
-                <th className="py-3 px-4 text-center">Average</th>
-                <th className="py-3 px-4 text-center">Delta / Trajectory</th>
-                <th className="py-3 px-4 text-center">Academic Attention Flag</th>
+                <th className="py-3 px-3 sm:px-4">Rank</th>
+                <th className="py-3 px-3 sm:px-4">Register Number</th>
+                <th className="py-3 px-3 sm:px-4">Student Name</th>
+                <th className="py-3 px-3 sm:px-4 text-center">IA-1 (100)</th>
+                <th className="py-3 px-3 sm:px-4 text-center">IA-2 (100)</th>
+                <th className="py-3 px-3 sm:px-4 text-center">Average</th>
+                <th className="py-3 px-3 sm:px-4 text-center">Delta / Trajectory</th>
+                <th className="py-3 px-3 sm:px-4 text-center">Academic Attention Flag</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60 text-slate-300">
@@ -363,13 +369,11 @@ export default function InternalAssessment() {
                 </tr>
               ) : (
                 displayedRows.map((student) => {
-                  // Calculate dynamic rank for this student
                   const rank = rankedStudents.findIndex((s) => s.id === student.id) + 1;
-                  const isTopRank = rank <= 3;
 
                   return (
                     <tr key={student.id} className="hover:bg-slate-800/40 transition">
-                      <td className="py-3 px-4">
+                      <td className="py-2.5 sm:py-3 px-3 sm:px-4">
                         <span className={`inline-flex items-center justify-center h-6 w-6 rounded-full text-[11px] font-bold ${
                           rank === 1
                             ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
@@ -383,47 +387,51 @@ export default function InternalAssessment() {
                         </span>
                       </td>
 
-                      <td className="py-3 px-4 font-mono font-medium text-indigo-300">
+                      <td className="py-2.5 sm:py-3 px-3 sm:px-4 font-mono font-medium text-indigo-300">
                         {student.regNo}
                       </td>
 
-                      <td className="py-3 px-4 font-semibold text-white">
+                      <td className="py-2.5 sm:py-3 px-3 sm:px-4 font-semibold text-white whitespace-nowrap">
                         {student.name}
                       </td>
 
                       {/* Editable IA-1 */}
-                      <td className="py-3 px-4 text-center">
+                      <td className="py-2.5 sm:py-3 px-3 sm:px-4 text-center">
                         <input
                           type="number"
+                          inputMode="numeric"
+                          pattern="[0-9]*"
                           min="0"
                           max="100"
                           value={student.ia1}
                           onChange={(e) => updateStudentMark(student.id, selectedSubject, 'ia1', e.target.value)}
-                          className="w-16 text-center py-1 rounded-lg bg-slate-950 border border-slate-700 focus:border-indigo-500 focus:outline-none font-mono text-white text-xs"
+                          className="w-16 text-center py-1.5 rounded-lg bg-slate-950 border border-slate-700 focus:border-indigo-500 focus:outline-none font-mono text-white text-xs min-h-[38px]"
                         />
                       </td>
 
                       {/* Editable IA-2 */}
-                      <td className="py-3 px-4 text-center">
+                      <td className="py-2.5 sm:py-3 px-3 sm:px-4 text-center">
                         <input
                           type="number"
+                          inputMode="numeric"
+                          pattern="[0-9]*"
                           min="0"
                           max="100"
                           value={student.ia2}
                           onChange={(e) => updateStudentMark(student.id, selectedSubject, 'ia2', e.target.value)}
-                          className="w-16 text-center py-1 rounded-lg bg-slate-950 border border-slate-700 focus:border-cyan-500 focus:outline-none font-mono text-white text-xs"
+                          className="w-16 text-center py-1.5 rounded-lg bg-slate-950 border border-slate-700 focus:border-cyan-500 focus:outline-none font-mono text-white text-xs min-h-[38px]"
                         />
                       </td>
 
                       {/* Calculated Average */}
-                      <td className="py-3 px-4 text-center">
+                      <td className="py-2.5 sm:py-3 px-3 sm:px-4 text-center">
                         <span className={`font-mono font-bold text-xs ${student.avg < 50 ? 'text-rose-400' : 'text-white'}`}>
                           {student.avg.toFixed(1)}%
                         </span>
                       </td>
 
                       {/* Trajectory */}
-                      <td className="py-3 px-4 text-center">
+                      <td className="py-2.5 sm:py-3 px-3 sm:px-4 text-center">
                         <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold ${
                           student.trajectory === 'improving'
                             ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'

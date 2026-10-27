@@ -1,0 +1,86 @@
+:root {
+  --pink: #ff2457;
+  --green: #39ff14;
+  --yellow: #fff94a;
+  --background: #101010;
+}
+
+/* Three independent neon rings surrounding the form */
+.neon-ring {
+  position: absolute;
+  inset: 0;
+  border: 9px solid var(--ring-color);
+  border-radius: 43% 57% 56% 44% / 43% 40% 60% 57%;
+  pointer-events: none;
+  z-index: -1;
+  animation: morph 7s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px var(--ring-color))
+          drop-shadow(0 0 35px var(--ring-color));
+  will-change: border-radius;
+}
+
+.ring-pink {
+  --ring-color: var(--pink);
+  transform: rotate(-12deg) scale(0.98);
+  animation-delay: 0s;
+}
+
+.ring-green {
+  --ring-color: var(--green);
+  transform: rotate(14deg) scale(0.94);
+  animation-delay: -2s;
+}
+
+.ring-yellow {
+  --ring-color: var(--yellow);
+  transform: rotate(-25deg) scale(1.02);
+  animation-delay: -4s;
+}
+
+/* Organic moving circle effect */
+@keyframes morph {
+  0%, 100% {
+    border-radius: 43% 57% 56% 44% /
+                   43% 40% 60% 57%;
+  }
+
+  25% {
+    border-radius: 57% 43% 39% 61% /
+                   52% 57% 43% 48%;
+  }
+
+  50% {
+    border-radius: 40% 60% 62% 38% /
+                       58% 42% 58% 42%;
+  }
+
+  75% {
+    border-radius: 62% 38% 44% 56% /
+                   40% 62% 38% 60%;
+  }
+}
+
+/* Tablet screens */
+@media (max-width: 768px) {
+  .neon-ring {
+    border-width: 7px;
+    filter: drop-shadow(0 0 10px var(--ring-color))
+            drop-shadow(0 0 26px var(--ring-color));
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 600px) {
+  .neon-ring {
+    border-width: 5px;
+    filter: drop-shadow(0 0 8px var(--ring-color))
+            drop-shadow(0 0 20px var(--ring-color));
+  }
+}
+
+/* Accessibility: respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .neon-ring {
+    animation: none !important;
+  }
+}

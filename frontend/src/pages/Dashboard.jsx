@@ -110,48 +110,57 @@ export default function Dashboard({ healthData, isLoadingHealth, onRefreshHealth
   ];
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto">
+    <div className="space-y-5 sm:space-y-8 max-w-7xl mx-auto overflow-x-hidden">
       {/* Top Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-900/40 via-purple-900/30 to-slate-900 border border-indigo-500/20 p-8 glass-panel shadow-2xl">
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-indigo-900/40 via-purple-900/30 to-slate-900 border border-indigo-500/20 p-5 sm:p-8 glass-panel shadow-2xl">
         <div className="relative z-10 max-w-3xl space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold">
-            <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
-            Institutional Academic Intelligence Portal
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-[11px] sm:text-xs font-bold shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-[#00afed]"></span>
+              <span className="font-display">INFO Institute of Engineering</span>
+              <span className="text-emerald-400 font-semibold text-[10px] sm:text-[11px]">• Autonomous</span>
+            </div>
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-[11px] sm:text-xs font-semibold">
+              <Sparkles className="h-3.5 w-3.5 text-indigo-400 shrink-0" />
+              <span>Academic Intelligence Portal</span>
+            </div>
           </div>
-          <h2 className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
             Executive Academic Dashboard
           </h2>
-          <p className="text-sm text-slate-300 leading-relaxed">
-            Monitor real-time cohort statistics, evaluate continuous assessment performance (IA-1 & IA-2), track Anna University examination arrears, and flag at-risk candidates for targeted academic intervention.
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Monitor real-time cohort statistics, evaluate continuous assessment performance (IA-1 &amp; IA-2), track Anna University examination arrears, and flag at-risk candidates for targeted academic intervention.
           </p>
 
-          <div className="pt-2 flex flex-wrap gap-3">
+          <div className="pt-2 flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-3">
             <button
               onClick={() => onNavigateTab('module-a')}
-              className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-lg shadow-indigo-600/30 transition flex items-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+              style={{ minHeight: '42px' }}
             >
-              <BookOpenCheck className="h-4 w-4" />
-              Open IA Analyzer (Module A)
-              <ArrowRight className="h-3.5 w-3.5" />
+              <BookOpenCheck className="h-4 w-4 shrink-0" />
+              <span>Open IA Analyzer (Module A)</span>
+              <ArrowRight className="h-3.5 w-3.5 shrink-0" />
             </button>
             <button
               onClick={() => onNavigateTab('module-b')}
-              className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+              style={{ minHeight: '42px' }}
             >
-              <FileSpreadsheet className="h-4 w-4 text-cyan-400" />
-              University Result Analyzer (Module B)
-              <ArrowRight className="h-3.5 w-3.5" />
+              <FileSpreadsheet className="h-4 w-4 text-cyan-400 shrink-0" />
+              <span>University Result Analyzer (Module B)</span>
+              <ArrowRight className="h-3.5 w-3.5 shrink-0" />
             </button>
           </div>
         </div>
 
         {/* Ambient glows */}
-        <div className="absolute -right-16 -top-16 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute right-32 -bottom-16 w-60 h-60 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div className="absolute -right-16 -top-16 w-60 sm:w-80 h-60 sm:h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute right-32 -bottom-16 w-48 sm:w-60 h-48 sm:h-60 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>
       </div>
 
       {/* Summary KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5">
         <StatCard
           title="Active Cohort"
           value={dashboardStats.totalStudents}
@@ -266,21 +275,21 @@ export default function Dashboard({ healthData, isLoadingHealth, onRefreshHealth
       </div>
 
       {/* Two Column Grid: Early Warning Alerts & Audit Logs */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Academic Attention Priority Feed */}
-        <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 glass-panel space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="p-2 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/20">
+        <div className="p-4 sm:p-6 rounded-2xl bg-slate-900/80 border border-slate-800 glass-panel space-y-4">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <div className="p-2 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/20 shrink-0">
                 <AlertTriangle className="h-4 w-4" />
               </div>
-              <h3 className="text-sm font-bold text-white">Priority Academic Attention Alerts</h3>
+              <h3 className="text-xs sm:text-sm font-bold text-white truncate">Priority Attention Alerts</h3>
             </div>
             <button
               onClick={() => onNavigateTab('module-a')}
-              className="text-xs text-indigo-400 hover:text-indigo-300 font-medium"
+              className="text-xs text-indigo-400 hover:text-indigo-300 font-medium shrink-0 cursor-pointer"
             >
-              View All Flags &rarr;
+              View All &rarr;
             </button>
           </div>
 
@@ -288,19 +297,19 @@ export default function Dashboard({ healthData, isLoadingHealth, onRefreshHealth
             {dashboardStats.atRiskList.map((item, idx) => (
               <div
                 key={idx}
-                className="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 flex items-center justify-between text-xs"
+                className="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs"
               >
-                <div>
-                  <div className="font-semibold text-white flex items-center gap-2">
-                    {item.studentName}
+                <div className="min-w-0">
+                  <div className="font-semibold text-white flex flex-wrap items-center gap-1.5 sm:gap-2">
+                    <span className="truncate">{item.studentName}</span>
                     <span className="text-[11px] font-mono text-cyan-400">({item.regNo})</span>
                   </div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">
+                  <div className="text-[11px] text-slate-400 mt-0.5 truncate">
                     {item.subjectCode} • IA-1: {item.ia1} &rarr; IA-2: {item.ia2}
                   </div>
                 </div>
-                <div className="text-right">
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/15 text-rose-300 border border-rose-500/30">
+                <div className="sm:text-right shrink-0">
+                  <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/15 text-rose-300 border border-rose-500/30">
                     {item.reason}
                   </span>
                 </div>
@@ -310,38 +319,39 @@ export default function Dashboard({ healthData, isLoadingHealth, onRefreshHealth
         </div>
 
         {/* Audit Log & Activity */}
-        <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 glass-panel space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+        <div className="p-4 sm:p-6 rounded-2xl bg-slate-900/80 border border-slate-800 glass-panel space-y-4">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 shrink-0">
                 <Clock className="h-4 w-4" />
               </div>
-              <h3 className="text-sm font-bold text-white">Institutional Activity & Audit Log</h3>
+              <h3 className="text-xs sm:text-sm font-bold text-white truncate">Institutional Activity &amp; Audit Log</h3>
             </div>
-            <span className="text-[11px] text-slate-500">Live system audit</span>
+            <span className="text-[11px] text-slate-500 shrink-0 hidden sm:inline">Live system audit</span>
           </div>
 
           <div className="space-y-2.5">
             {AUDIT_LOGS.map((log) => (
               <div
                 key={log.id}
-                className="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 flex items-center justify-between text-xs"
+                className="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-xs"
               >
-                <div>
-                  <div className="font-semibold text-white">{log.action}</div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">
+                <div className="min-w-0">
+                  <div className="font-semibold text-white truncate">{log.action}</div>
+                  <div className="text-[11px] text-slate-400 mt-0.5 truncate">
                     {log.user} • {log.subject}
                   </div>
                 </div>
-                <div className="text-right text-[11px] text-slate-500">
-                  <span className="text-indigo-400 block font-medium">{log.status}</span>
-                  {log.time}
+                <div className="sm:text-right text-[11px] text-slate-500 shrink-0 flex items-center sm:block gap-2">
+                  <span className="text-indigo-400 font-medium">{log.status}</span>
+                  <span className="text-slate-500 sm:block">{log.time}</span>
                 </div>
               </div>
             ))}
           </div>
         </div>
       </div>
+
 
       {/* System & API Diagnostics Status Bar */}
       <HealthWidget
